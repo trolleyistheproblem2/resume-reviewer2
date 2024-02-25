@@ -1,0 +1,77 @@
+<!-- Key Skills from Resume -->
+<section>
+    <h2>Resume Skills</h2>
+    <ul>
+        {% for skill in resume_skills %}
+            <li>{{ skill }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Key Skills from Job Description -->
+<section>
+    <h2>Job Description Skills</h2>
+    <ul>
+        {% for skill in jd_skills %}
+            <li>{{ skill }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Key Verbs from Resume -->
+<section>
+    <h2>Resume Verbs</h2>
+    <ul>
+        {% for verb in resume_verbs %}
+            <li>{{ verb }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Key Verbs from Job Description -->
+<section>
+    <h2>Job Description Verbs</h2>
+    <ul>
+        {% for verb in jd_verbs %}
+            <li>{{ verb }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Comparison Table for Skills -->
+<section>
+    <h2>Skills Comparison</h2>
+    <table>
+        <tr>
+            <th>Skills required in Job Description</th>
+            <th>Skills demonstrated in Resume</th>
+            <th>Strength of Matching</th>
+        </tr>
+        {% for row in skills_comparison %}
+            <tr>
+                <td>{{ row['JD Skills'] }}</td>
+                <td>{{ row['Resume Skills'] }}</td>
+                <td>{{ row['Strength'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</section>
+
+<!-- Comparison Table for Action Verbs -->
+<section>
+    <h2>Action Verbs Comparison</h2>
+    <table>
+        <tr>
+            <th>Action Verbs used in Job Description</th>
+            <th>Action Verbs used in Resume</th>
+            <th>Strength</th>
+        </tr>
+        {% for row in verbs_comparison %}
+            <tr>
+                <td>{{ row['JD Verbs'] }}</td>
+                <td>{{ row['Resume Verbs'] }}</td>
+                <td>{{ row['Strength'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</section>
