@@ -200,4 +200,6 @@ def convert_response_to_json(response_text):
     return df.to_json(orient='records')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Use os.environ.get() to get the port dynamically
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
