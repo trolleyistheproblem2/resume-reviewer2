@@ -6,28 +6,43 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 20px;
             background-color: #f4f4f4;
             color: #333;
             line-height: 1.6;
         }
-        h1, h2 {
+        h1 {
             text-align: center;
+            font-size: 2em;
+            margin-bottom: 10px;
         }
-        form {
-            margin-top: 20px;
-            text-align: center;
-            width: 50%;
-            margin: auto;
+        h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .intro-container, form, .result-container {
+            background-color: #fff;
+            width: 70%;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .intro-container p, form p {
+            margin-bottom: 15px;
         }
         label {
             display: block;
             margin-bottom: 5px;
         }
         input[type="text"], textarea {
-            width: calc(100% - 20px);
-            padding: 8px;
-            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
@@ -39,45 +54,29 @@
             border-radius: 5px;
             padding: 10px 20px;
             cursor: pointer;
-            display: block;
-            margin: 20px auto 40px auto;
+            width: 100%;
+            box-sizing: border-box;
         }
         input[type="submit"]:hover {
             background-color: #555;
         }
-        #feature1-results, #feature2-results {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .result-container {
             text-align: left;
-            width: 50%;
-            margin: auto;
         }
         hr {
-            margin-top: 20px;
+            border: none;
+            height: 1px;
+            background-color: #ccc;
+            margin: 20px 0;
         }
-        .intro-container {
-            text-align: center;
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .intro-container p {
-    margin: 10px 0;
-    padding: 5px; /* New padding for better spacing around each paragraph */
-    max-width: 80%; /* Optional: to control the width of the text for better readability */
-}
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <h1>Resume and Job Description Analysis</h1>
 
-    <!-- Introduction and Explanation -->
     <div class="intro-container">
+        <!-- Introduction and Explanation -->
         <p>Welcome to the Resume and Job Description Analysis Tool! This tool utilizes advanced Large Language Models (LLMs) to analyze and compare your resume with a job description.</p>
         <p><strong>Feature 1</strong> identifies key skills and action verbs in your resume and the job description, providing a detailed comparison to highlight alignment and potential improvement areas.</p>
         <p><strong>Feature 2</strong> uses the power of LLMs to rephrase specific resume points, enhancing their impact by emphasizing relevant skills and action verbs. This feature is designed to refine your resume for maximum effectiveness.</p>
@@ -87,17 +86,16 @@
     <form id="feature1-form">
         <h2>Analyze Resume and Job Description</h2>
         <p>Copy and paste your resume and the job description into the fields below to see how they match.</p>
-        <p>Additionally, utilize the Resume Writer tool to refine your resume by emphasizing skills required in the job description that may not be adequately reflected.</p>
-        <label for="resume">Resume:</label><br>
-        <textarea id="resume" name="resume" rows="5" cols="33" placeholder="Paste or type your resume here"></textarea><br>
+        <label for="resume">Resume:</label>
+        <textarea id="resume" name="resume" rows="5" placeholder="Paste or type your resume here"></textarea>
 
-        <label for="job_description">Job Description:</label><br>
-        <textarea id="job_description" name="job_description" rows="5" cols="33" placeholder="Paste or type the job description here"></textarea><br>
+        <label for="job_description">Job Description:</label>
+        <textarea id="job_description" name="job_description" rows="5" placeholder="Paste or type the job description here"></textarea>
 
         <input type="submit" value="Analyze">
     </form>
 
-    <div id="feature1-results">
+    <div id="feature1-results" class="result-container">
         <!-- Results from Feature 1 will be displayed here -->
     </div>
     <hr>
@@ -106,19 +104,19 @@
     <form id="feature2-form">
         <h2>Rewrite Resume Point</h2>
         <p>Enter a specific point from your resume, along with a skill and an action verb, to get a suggested rewrite.</p>
-        <label for="resume_point">Resume Point:</label><br>
-        <input type="text" id="resume_point" name="resume_point" placeholder="Enter the resume point you want to rewrite"><br>
+        <label for="resume_point">Resume Point:</label>
+        <input type="text" id="resume_point" name="resume_point" placeholder="Enter the resume point you want to rewrite">
 
-        <label for="skill">Skill to Highlight:</label><br>
-        <input type="text" id="skill" name="skill" placeholder="Enter the skill you want to highlight (preferably one where you got a Low Score Above)"><br>
+        <label for="skill">Skill to Highlight:</label>
+        <input type="text" id="skill" name="skill" placeholder="Enter the skill you want to highlight">
 
-        <label for="action_verb">Action Verb:</label><br>
-        <input type="text" id="action_verb" name="action_verb" placeholder="Enter an action verb to enhance the point (preferably one where you got a Low Score Above)"><br>
+        <label for="action_verb">Action Verb:</label>
+        <input type="text" id="action_verb" name="action_verb" placeholder="Enter an action verb to enhance the point">
 
         <input type="submit" value="Rewrite">
     </form>
 
-    <div id="feature2-results">
+    <div id="feature2-results" class="result-container">
         <!-- Results from Feature 2 will be displayed here -->
     </div>
 
