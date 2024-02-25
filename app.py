@@ -41,7 +41,7 @@ def process_feature1():
     # Convert DataFrames to lists of dictionaries for template rendering
     skills_comparison = json.loads(skills_comparison_text)
     verbs_comparison = json.loads(verbs_comparison_text)
-    print('3. Verb Comparison Being Rendered ', verbs_comparison)
+    #print('3. Verb Comparison Being Rendered ', verbs_comparison)
     # Render and return the HTML snippet with the data
     return render_template('feature1_results_snippet.html',
                            resume_skills=resume_skills_tools,
@@ -166,9 +166,9 @@ def compare_verbs(resume_verbs, jd_verbs):
             }
         ]
     )
-    print('1. Raw Comparison Output',response.choices[0].message.content)
+    #print('1. Raw Comparison Output',response.choices[0].message.content)
     response_text = response.choices[0].message.content
-    print('2. JSON of Comparison Output',convert_response_to_json(response_text))
+    #print('2. JSON of Comparison Output',convert_response_to_json(response_text))
     return convert_response_to_json(response_text)
 
 def rewrite_resume_point(point, skill, action_verb):
