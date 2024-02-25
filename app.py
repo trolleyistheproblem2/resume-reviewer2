@@ -201,5 +201,5 @@ def convert_response_to_json(response_text):
 
 if __name__ == '__main__':
     # Use os.environ.get() to get the port dynamically
-    port = int(os.environ.get(6542))
+    port = 6542
     app.run(host='0.0.0.0', port=port)
