@@ -18,6 +18,27 @@
     </ul>
 </section>
 
+<!-- Comparison Table for Skills -->
+<section style="background-color: #fff; padding: 20px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #333; margin-bottom: 10px; text-align: left;">Skills Comparison</h2>
+    <table style="width: 100%;">
+        <tr>
+            <th>Skills required in Job Description</th>
+            <th>Skills demonstrated in Resume</th>
+            <th>Match Level</th>
+        </tr>
+        {% for row in skills_comparison %}
+            <tr>
+                <td>{{ row['JD Skills'] }}</td>
+                <td>{{ row['Resume Skills'] }}</td>
+                <td>{{ row['Strength'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</section>
+
+
+
 <!-- Key Verbs from Resume -->
 <section style="background-color: #fff; padding: 20px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <h2 style="color: #333; margin-bottom: 10px; text-align: left;">Resume Verbs</h2>
@@ -38,24 +59,7 @@
     </ul>
 </section>
 
-<!-- Comparison Table for Skills -->
-<section style="background-color: #fff; padding: 20px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <h2 style="color: #333; margin-bottom: 10px; text-align: left;">Skills Comparison</h2>
-    <table style="width: 100%;">
-        <tr>
-            <th>Skills required in Job Description</th>
-            <th>Skills demonstrated in Resume</th>
-            <th>Match Level</th>
-        </tr>
-        {% for row in skills_comparison %}
-            <tr>
-                <td>{{ row['JD Skills'] }}</td>
-                <td>{{ row['Resume Skills'] }}</td>
-                <td>{{ row['Strength'] }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-</section>
+
 
 <!-- Comparison Table for Action Verbs -->
 <section style="background-color: #fff; padding: 20px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">

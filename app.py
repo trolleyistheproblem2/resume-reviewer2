@@ -21,6 +21,7 @@ temperature_extraction_skills = .5
 temperature_extraction_verbs = .3
 temperature_compare = .3
 temperature_rewrite = .7
+best_of_var = 5
 
 
 @app.route('/')
@@ -50,7 +51,8 @@ def process_feature1():
     # Convert DataFrames to lists of dictionaries for template rendering
     skills_comparison = json.loads(skills_comparison_text)
     verbs_comparison = json.loads(verbs_comparison_text)
-    #print('3. Verb Comparison Being Rendered ', verbs_comparison)
+    print('3. Skill Comparison Being Rendered ', skills_comparison)
+    #print('4. Verb Comparison Being Rendered ', verbs_comparison)
     # Render and return the HTML snippet with the data
     return render_template('feature1_results_snippet.html',
                            resume_skills=resume_skills_tools,
@@ -80,15 +82,16 @@ def extract_skills_verbs(text):
                                              b. Only important action verbs.
                                     Output conditions:
                                     1. Be concise (maximum 3 words per bullet)
-                                    2. Combine duplicates e.g. AI and AI Modelling are same skill
-                                    3. Ignore: Minor verbs like Need, Working, Helping etc.
-                                    4. Ignore: Abilities that you would expect an MBA student to have, for example: English fluency
-                                    5. Ignore: Job titles 
-                                    6. Mention technical skills in same bullet e.g. R, Python, etc. 
-                                    7. Sort 2 lists by order of relative importance of skill or action verb in document
-                                    8. Number the lists
-                                    9. Minimum 5 bullets, maximum 10 bullets
-                                    10. Skill could include area of expertise (e.g. Climate Technology), """},
+                                    2. Minimum 7 bullets
+                                    3. Maximum 10 bullets
+                                    4. Combine duplicates e.g. AI and AI Modelling are same skill
+                                    5. Ignore: Minor verbs like Need, Working, Helping etc.
+                                    6. Ignore: Abilities that you would expect an MBA student to have, for example: English fluency
+                                    7. Ignore: Job titles 
+                                    8. Mention technical skills in same bullet e.g. R, Python, etc. 
+                                    9. Sort 2 lists by order of relative importance of skill or action verb in document
+                                    10. Number the lists
+                                    11. Skill could include area of expertise (e.g. Climate Technology), """},
             {"role": "user", "content": text}
         ],
         temperature = temperature_extraction_skills,
@@ -137,7 +140,8 @@ def compare_skills(resume_skills, jd_skills):
             }
         ],
         temperature=temperature_extraction_verbs,
-        seed=seed
+        seed=seed,
+        n = 3
     )
     #print(response.choices[0].message.content)
     response_text = response.choices[0].message.content
@@ -185,9 +189,9 @@ def compare_verbs(resume_verbs, jd_verbs):
         temperature=temperature_compare,
         seed=seed
     )
-    #print('1. Raw Comparison Output',response.choices[0].message.content)
+    print('1. Raw Comparison Output',response.choices[0].message.content)
     response_text = response.choices[0].message.content
-    #print('2. JSON of Comparison Output',convert_response_to_json(response_text))
+    print('2. JSON of Comparison Output',convert_response_to_json(response_text))
     return convert_response_to_json(response_text)
 
 def rewrite_resume_point(point, skill, action_verb):
@@ -223,4 +227,4 @@ def convert_response_to_json(response_text):
 if __name__ == '__main__':
     # Use os.environ.get() to get the port dynamically
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug = False)
+    app.run(host='0.0.0.0', port=port, debug = True)
