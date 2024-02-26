@@ -20,8 +20,9 @@ seed = 42
 temperature_extraction_skills = .5
 temperature_extraction_verbs = .3
 temperature_compare = .3
-temperature_rewrite = .7
+temperature_rewrite = .8
 best_of_var = 5
+number_of_generated_responses = 1
 
 
 @app.route('/')
@@ -88,10 +89,10 @@ def extract_skills_verbs(text):
                                     5. Ignore: Minor verbs like Need, Working, Helping etc.
                                     6. Ignore: Abilities that you would expect an MBA student to have, for example: English fluency
                                     7. Ignore: Job titles 
-                                    8. Mention technical skills in same bullet e.g. R, Python, etc. 
+                                    8. Include: technical skills in same bullet e.g. R, Python, etc. 
                                     9. Sort 2 lists by order of relative importance of skill or action verb in document
                                     10. Number the lists
-                                    11. Skill could include area of expertise (e.g. Climate Technology), """},
+                                    11. Include: Area of expertise (e.g. Climate Technology), """},
             {"role": "user", "content": text}
         ],
         temperature = temperature_extraction_skills,
@@ -141,7 +142,7 @@ def compare_skills(resume_skills, jd_skills):
         ],
         temperature=temperature_extraction_verbs,
         seed=seed,
-        n = 3
+        n = number_of_generated_responses
     )
     #print(response.choices[0].message.content)
     response_text = response.choices[0].message.content
