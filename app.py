@@ -13,6 +13,15 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 # Set the API key
 openai.api_key = openai_api_key
 
+#Defining Temperature and Seed
+
+seed = 42
+
+temperature_extraction_skills = .5
+temperature_extraction_verbs = .3
+temperature_compare = .3
+temperature_rewrite = .7
+
 
 @app.route('/')
 def index():
@@ -77,9 +86,13 @@ def extract_skills_verbs(text):
                                     5. Ignore: Job titles 
                                     6. Mention technical skills in same bullet e.g. R, Python, etc. 
                                     7. Sort 2 lists by order of relative importance of skill or action verb in document
-                                    8. Number the lists"""},
+                                    8. Number the lists
+                                    9. Minimum 5 bullets, maximum 10 bullets
+                                    10. Skill could include area of expertise (e.g. Climate Technology), """},
             {"role": "user", "content": text}
-        ]
+        ],
+        temperature = temperature_extraction_skills,
+        seed = seed
     )
     content = response.choices[0].message.content
     sections = content.split('\n\n')
@@ -114,6 +127,7 @@ def compare_skills(resume_skills, jd_skills):
                                      Output conditions: 
                                      1. Be generous in matching. Eg. If table2 includes R, Python, impact measurement, they will know maths and statistics 
                                      2. Sort by descending in Column 3 
+                                     3. Include all JD Skills in Column 1
                                      
                                      """
             },
@@ -121,7 +135,9 @@ def compare_skills(resume_skills, jd_skills):
                 "role": "user",
                 "content": f"Table1: {jd_skills_json}\n\nTable2: {resume_skills_json}"
             }
-        ]
+        ],
+        temperature=temperature_extraction_verbs,
+        seed=seed
     )
     #print(response.choices[0].message.content)
     response_text = response.choices[0].message.content
@@ -157,6 +173,7 @@ def compare_verbs(resume_verbs, jd_verbs):
                                      Output conditions: 
                                      1. Be generous in matching. Eg. If table2 includes R, Python, impact measurement, they will know maths and statistics 
                                      2. Sort by descending in Column 3
+                                     3. Include all JD Verbs in Column 1
 
                                      """
             },
@@ -164,7 +181,9 @@ def compare_verbs(resume_verbs, jd_verbs):
                 "role": "user",
                 "content": f"Table1: {jd_verbs_json}\n\nTable2: {resume_verbs_json}"
             }
-        ]
+        ],
+        temperature=temperature_compare,
+        seed=seed
     )
     #print('1. Raw Comparison Output',response.choices[0].message.content)
     response_text = response.choices[0].message.content
@@ -177,7 +196,9 @@ def rewrite_resume_point(point, skill, action_verb):
         messages=[
             {"role": "system", "content": "Rewrite the resume point considering the given skill and action verb."},
             {"role": "user", "content": f"1. Resume Point: {point}\n2. Skill: {skill}\n3. Action Verb: {action_verb}"}
-        ]
+        ],
+        temperature=temperature_rewrite,
+        seed=seed
     )
     #print(response.choices[0].message.content)
     return response.choices[0].message.content
@@ -202,4 +223,4 @@ def convert_response_to_json(response_text):
 if __name__ == '__main__':
     # Use os.environ.get() to get the port dynamically
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug = False)
