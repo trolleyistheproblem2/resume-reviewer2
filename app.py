@@ -17,9 +17,10 @@ openai.api_key = openai_api_key
 
 seed = 42
 
-temperature_extraction_skills = .5
+temperature_extraction_skills = .4
 temperature_extraction_verbs = .3
-temperature_compare = .3
+temperature_compare_skills = .1
+temperature_compare_verbs = .4
 temperature_rewrite = .8
 best_of_var = 5
 number_of_generated_responses = 1
@@ -140,7 +141,7 @@ def compare_skills(resume_skills, jd_skills):
                 "content": f"Table1: {jd_skills_json}\n\nTable2: {resume_skills_json}"
             }
         ],
-        temperature=temperature_extraction_verbs,
+        temperature=temperature_compare_skills,
         seed=seed,
         n = number_of_generated_responses
     )
@@ -187,7 +188,7 @@ def compare_verbs(resume_verbs, jd_verbs):
                 "content": f"Table1: {jd_verbs_json}\n\nTable2: {resume_verbs_json}"
             }
         ],
-        temperature=temperature_compare,
+        temperature=temperature_compare_verbs,
         seed=seed
     )
     print('1. Raw Comparison Output',response.choices[0].message.content)
