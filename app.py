@@ -17,10 +17,10 @@ openai.api_key = openai_api_key
 
 seed = 42
 
-temperature_extraction_skills = .4
-temperature_extraction_verbs = .3
-temperature_compare_skills = .1
-temperature_compare_verbs = .4
+temperature_extraction_skills = .5
+temperature_extraction_verbs = 1
+temperature_compare_skills = .3
+temperature_compare_verbs = .1
 temperature_rewrite = .8
 best_of_var = 5
 number_of_generated_responses = 1
@@ -86,7 +86,7 @@ def extract_skills_verbs(text):
                                     1. Be concise (maximum 3 words per bullet)
                                     2. Minimum 7 bullets
                                     3. Maximum 10 bullets
-                                    4. Combine duplicates e.g. AI and AI Modelling are same skill
+                                    4. Combine duplicates e.g. AI and AI Modelling will be one bullet
                                     5. Ignore: Minor verbs like Need, Working, Helping etc.
                                     6. Ignore: Abilities that you would expect an MBA student to have, for example: English fluency
                                     7. Ignore: Job titles 
